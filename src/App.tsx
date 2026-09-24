@@ -6,7 +6,7 @@ function App() {
   const [audioEnabled, setAudioEnabled] = useState(false);
   const [started, setStarted] = useState(false);
 
-  const menuItems = ["Iniciar portfólio", "Projetos", "Habilidades", "Contato"];
+  const menuItems = ["Status", "Inventário", "Habilidades", "Comunicação"];
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -92,22 +92,14 @@ function App() {
           </div>
         </div>
 
-        <div className="visual-panel" aria-label="Núcleo de energia interativo">
-          <div className="hud-corner corner-one" />
-          <div className="hud-corner corner-two" />
-          <div className="orbit orbit-one">
-            <span />
-          </div>
-          <div className="orbit orbit-two">
-            <span />
-          </div>
-          <div className="core">
-            <div className="core-inner">VF</div>
-          </div>
-          <div className="power-label">
-            <span>NÚCLEO</span>
-            <strong>100%</strong>
-          </div>
+        <div className="visual-panel" aria-label="Perfil do jogador">
+          <div className="player-aura" aria-hidden="true" />
+          <img
+            className="player-image"
+            src="public/images/profile.jpeg"
+            alt="Foto de perfil"
+            aria-hidden="true"
+          ></img>
         </div>
       </section>
 
