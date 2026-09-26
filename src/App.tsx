@@ -5,6 +5,7 @@ function App() {
   const [activeItem, setActiveItem] = useState(0);
   const [audioEnabled, setAudioEnabled] = useState(false);
   const [started, setStarted] = useState(false);
+  const [statusOpen, setStatusOpen] = useState(false);
 
   const menuItems = ["Status", "Inventário", "Habilidades", "Comunicação"];
 
@@ -19,17 +20,29 @@ function App() {
         );
       }
       if (event.key === "Enter") {
-        setStarted(true);
+        if (
+          event.target instanceof HTMLElement &&
+          event.target.closest("button, a, input, textarea, select")
+        ) return;
+        if (activeItem === 0) setStatusOpen(true);
+        else setStarted(true);
       }
+      if (event.key === "Escape") setStatusOpen(false);
     };
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [menuItems.length]);
+  }, [menuItems.length, activeItem]);
 
   function selectItem(index: number) {
     setActiveItem(index);
-    setStarted(true);
+    if (index === 0) {
+      setStatusOpen(true);
+      setStarted(false);
+    } else {
+      setStarted(true);
+      setStatusOpen(false);
+    }
   }
 
   return (
@@ -105,7 +118,7 @@ function App() {
 
       <footer className="footer-bar">
         <span>↑ ↓ NAVEGAR</span>
-        <button type="button" onClick={() => setStarted(true)}>
+        <button type="button" onClick={() => selectItem(activeItem)}>
           ENTER SELECIONAR
         </button>
         <span>BUILD 01.00</span>
@@ -122,6 +135,52 @@ function App() {
           >
             ×
           </button>
+        </div>
+      )}
+
+      {statusOpen && (
+        <div
+          className="status-overlay"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) setStatusOpen(false);
+          }}
+        >
+          <section
+            className="status-window"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="status-title"
+          >
+            <button
+              className="status-close"
+              type="button"
+              onClick={() => setStatusOpen(false)}
+              aria-label="Fechar status"
+            >
+              ×
+            </button>
+            <p className="eyebrow">PLAYER PROFILE // 01</p>
+            <h2 id="status-title">Status</h2>
+
+            <div className="status-profile">
+              <div className="status-level"><strong>24</strong><span>LEVEL</span></div>
+              <div><span className="status-label">PLAYER</span><strong>{portfolio.firstName} {portfolio.lastName}</strong></div>
+              <div><span className="status-label">CLASS</span><strong>AI Engineer</strong></div>
+            </div>
+
+            <div className="status-progress">
+              <div><span>EXPERIENCE</span><strong>72%</strong></div>
+              <div className="status-track"><span /></div>
+            </div>
+
+            <div className="status-attributes" aria-label="Atributos do perfil">
+              {[["STR", 239], ["VIT", 211], ["AGI", 235], ["INT", 240], ["PER", 207], ["POINTS", 3]].map(([label, value]) => (
+                <div className="status-attribute" key={label}>
+                  <span>{label}</span><strong>{value}</strong>
+                </div>
+              ))}
+            </div>
+          </section>
         </div>
       )}
     </main>
