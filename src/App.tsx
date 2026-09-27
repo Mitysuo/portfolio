@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { portfolio } from "./data/portfolio";
+import SpotifyAudio from "./components/SpotifyAudio";
 
 type HybridStatus = {
   hp: number;
@@ -10,7 +11,6 @@ type HybridStatus = {
 
 function App() {
   const [activeItem, setActiveItem] = useState(0);
-  const [audioEnabled, setAudioEnabled] = useState(false);
   const [started, setStarted] = useState(false);
   const [statusOpen, setStatusOpen] = useState(false);
   const [hybridStatus, setHybridStatus] = useState<HybridStatus>({
@@ -101,13 +101,7 @@ function App() {
         </a>
 
         <div className="status-group">
-          <button
-            className="audio-button"
-            type="button"
-            onClick={() => setAudioEnabled((value) => !value)}
-          >
-            Áudio: {audioEnabled ? "ON" : "OFF"}
-          </button>
+          <SpotifyAudio />
           <span className="status">
             <i /> STATUS: ONLINE
           </span>
