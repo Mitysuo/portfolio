@@ -231,13 +231,14 @@ function App() {
               {(["HP", "MP"] as const).map((attribute) => {
                 const value =
                   hybridStatus[attribute.toLowerCase() as "hp" | "mp"];
-                const hasValue = value >= 0;
+                const hasValue = Number.isFinite(value) && value >= 0;
+                const percentage = hasValue ? Math.min(value, 100) : 0;
 
                 return (
                   <div className="status-vital" key={attribute}>
                     <div className="status-vital-heading">
                       <span>{attribute}</span>
-                      <strong>{hasValue ? `${value}/100` : "-1"}</strong>
+                      <strong>{hasValue ? `${percentage}/100` : "-1"}</strong>
                     </div>
                     <div
                       className="status-vital-track"
@@ -245,12 +246,12 @@ function App() {
                       aria-label={attribute}
                       aria-valuemin={0}
                       aria-valuemax={100}
-                      aria-valuenow={hasValue ? value : 0}
+                      aria-valuenow={percentage}
                       aria-valuetext={
-                        hasValue ? `${value}/100` : "Sem dados: -1"
+                        hasValue ? `${percentage}/100` : "Sem dados: -1"
                       }
                     >
-                      <span style={{ width: `${hasValue ? value : 0}` }} />
+                      <span style={{ width: `${percentage}%` }} />
                     </div>
                   </div>
                 );
@@ -260,7 +261,8 @@ function App() {
                 <p>
                   Métricas obtidas por meio do Hybrid Charge do relógio Zepp
                   T-Rex 3, calculadas com base na média dos últimos 10 registros
-                  disponíveis. O horário indica a primeira leitura desse grupo
+                  disponíveis. O horário a seguir indica a primeira leitura
+                  desse grupo
                   {hybridStatus.from
                     ? `: ${new Date(hybridStatus.from).toLocaleString("pt-BR", { timeZone: "America/Sao_Paulo" })}.`
                     : ". Se não houver leituras, os valores aparecem como -1."}
