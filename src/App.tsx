@@ -5,18 +5,16 @@ import SpotifyAudio from "./components/SpotifyAudio";
 type HybridStatus = {
   hp: number;
   mp: number;
-  sampleCount: number;
   from: string | null;
 };
 
 function App() {
   const [activeItem, setActiveItem] = useState(0);
-  const [started, setStarted] = useState(false);
+  const [notificationItem, setNotificationItem] = useState<number | null>(null);
   const [statusOpen, setStatusOpen] = useState(false);
   const [hybridStatus, setHybridStatus] = useState<HybridStatus>({
     hp: -1,
     mp: -1,
-    sampleCount: 0,
     from: null,
   });
 
@@ -38,7 +36,7 @@ function App() {
       })
       .catch(() => {
         if (isMounted) {
-          setHybridStatus({ hp: -1, mp: -1, sampleCount: 0, from: null });
+          setHybridStatus({ hp: -1, mp: -1, from: null });
         }
       });
 
@@ -49,14 +47,27 @@ function App() {
 
   const menuItems = ["Status", "Inventário", "Habilidades", "Comunicação"];
 
+  const menuDescriptions = [
+    "Resumo, atributos e métricas do perfil.",
+    "Projetos, ferramentas e tecnologias que fazem parte do meu trabalho.",
+    "Minhas principais competências e áreas de atuação em IA, e gerais.",
+    "Meus canais profissionais e formas de entrar em contato.",
+  ];
+
+  function changeActiveItem(index: number) {
+    if (index === activeItem) return;
+    setActiveItem(index);
+    setNotificationItem(index);
+  }
+
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "ArrowDown") {
-        setActiveItem((current) => (current + 1) % menuItems.length);
+        changeActiveItem((activeItem + 1) % menuItems.length);
       }
       if (event.key === "ArrowUp") {
-        setActiveItem(
-          (current) => (current - 1 + menuItems.length) % menuItems.length,
+        changeActiveItem(
+          (activeItem - 1 + menuItems.length) % menuItems.length,
         );
       }
       if (event.key === "Enter") {
@@ -67,8 +78,6 @@ function App() {
           return;
         if (activeItem === 0) {
           setStatusOpen(true);
-        } else {
-          setStarted(true);
         }
       }
       if (event.key === "Escape") setStatusOpen(false);
@@ -76,15 +85,13 @@ function App() {
 
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [menuItems.length, activeItem]);
+  }, [activeItem]);
 
   function selectItem(index: number) {
-    setActiveItem(index);
+    changeActiveItem(index);
     if (index === 0) {
       setStatusOpen(true);
-      setStarted(false);
     } else {
-      setStarted(true);
       setStatusOpen(false);
     }
   }
@@ -92,7 +99,6 @@ function App() {
   return (
     <main className="game-screen">
       <div className="stars" aria-hidden="true" />
-      <div className="grid" aria-hidden="true" />
       <div className="scanlines" aria-hidden="true" />
 
       <header className="top-bar">
@@ -123,8 +129,8 @@ function App() {
                 key={item}
                 type="button"
                 className={activeItem === index ? "active" : ""}
-                onMouseEnter={() => setActiveItem(index)}
-                onFocus={() => setActiveItem(index)}
+                onMouseEnter={() => changeActiveItem(index)}
+                onFocus={() => changeActiveItem(index)}
                 onClick={() => selectItem(index)}
               >
                 <span className="selector">▶</span>
@@ -162,13 +168,13 @@ function App() {
         <span>BUILD 01.00</span>
       </footer>
 
-      {started && (
+      {notificationItem !== null && (
         <div className="notification" role="status">
-          <strong>{menuItems[activeItem]}</strong>
-          <span>Base pronta. Esta ação poderá abrir a próxima seção.</span>
+          <strong>{menuItems[notificationItem]}</strong>
+          <span>{menuDescriptions[notificationItem]}</span>
           <button
             type="button"
-            onClick={() => setStarted(false)}
+            onClick={() => setNotificationItem(null)}
             aria-label="Fechar aviso"
           >
             ×
