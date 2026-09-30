@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { portfolio } from "./data/portfolio";
 import SpotifyAudio from "./components/SpotifyAudio";
+import SkillsWindow from "./components/SkillsWindow";
 
 type HybridStatus = {
   hp: number;
@@ -12,6 +13,7 @@ function App() {
   const [activeItem, setActiveItem] = useState(0);
   const [notificationItem, setNotificationItem] = useState<number | null>(null);
   const [statusOpen, setStatusOpen] = useState(false);
+  const [skillsOpen, setSkillsOpen] = useState(false);
   const [hybridStatus, setHybridStatus] = useState<HybridStatus>({
     hp: -1,
     mp: -1,
@@ -78,9 +80,19 @@ function App() {
           return;
         if (activeItem === 0) {
           setStatusOpen(true);
+          setSkillsOpen(false);
+          setNotificationItem(null);
+        }
+        if (activeItem === 2) {
+          setSkillsOpen(true);
+          setStatusOpen(false);
+          setNotificationItem(null);
         }
       }
-      if (event.key === "Escape") setStatusOpen(false);
+      if (event.key === "Escape") {
+        setStatusOpen(false);
+        setSkillsOpen(false);
+      }
     };
 
     window.addEventListener("keydown", onKeyDown);
@@ -89,10 +101,16 @@ function App() {
 
   function selectItem(index: number) {
     changeActiveItem(index);
+    setNotificationItem(null);
     if (index === 0) {
       setStatusOpen(true);
+      setSkillsOpen(false);
+    } else if (index === 2) {
+      setStatusOpen(false);
+      setSkillsOpen(true);
     } else {
       setStatusOpen(false);
+      setSkillsOpen(false);
     }
   }
 
@@ -294,6 +312,8 @@ function App() {
           </section>
         </div>
       )}
+
+      {skillsOpen && <SkillsWindow onClose={() => setSkillsOpen(false)} />}
     </main>
   );
 }
