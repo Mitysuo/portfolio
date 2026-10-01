@@ -44,6 +44,8 @@ export const skillCategories: SkillCategory[] = [
     shortName: "Back-end",
     nodes: [
       { id: "python", name: "Python", glyph: "PY", level: 4 },
+      { id: "r", name: "R", glyph: "R", level: 2 },
+      { id: "Matlab", name: "Matlab", glyph: "ML", level: 2 },
       { id: "apex", name: "Apex", glyph: "APX", level: 3 },
     ],
   },
@@ -59,7 +61,10 @@ export const skillCategories: SkillCategory[] = [
         name: "JavaScript",
         glyph: "JS",
         level: 2,
-        children: [{ id: "react", name: "React", glyph: "R", level: 1 }],
+        children: [
+          { id: "react", name: "React", glyph: "R", level: 1 },
+          { id: "typescript", name: "TypeScript", glyph: "TS", level: 1 },
+        ],
       },
     ],
   },
@@ -71,6 +76,7 @@ export const skillCategories: SkillCategory[] = [
       { id: "sql", name: "SQL", glyph: "SQL", level: 3 },
       { id: "excel", name: "Excel", glyph: "XL", level: 3 },
       { id: "airflow", name: "Airflow", glyph: "AF", level: 2 },
+      { id: "power-bi", name: "Power BI", glyph: "PBI", level: 1 },
       {
         id: "salesforce",
         name: "Salesforce",
@@ -82,6 +88,18 @@ export const skillCategories: SkillCategory[] = [
             name: "Marketing Cloud",
             glyph: "MC",
             level: 3,
+          },
+          {
+            id: "sales-cloud",
+            name: "Sales Cloud",
+            glyph: "SAC",
+            level: 4,
+          },
+          {
+            id: "service-cloud",
+            name: "Service Cloud",
+            glyph: "SEC",
+            level: 4,
           },
         ],
       },
@@ -97,9 +115,7 @@ export const skillCategories: SkillCategory[] = [
         name: "GitLab",
         glyph: "GL",
         level: 4,
-        children: [
-          { id: "gitlab-cicd", name: "CI/CD", glyph: "CI", level: 1 },
-        ],
+        children: [{ id: "gitlab-cicd", name: "CI/CD", glyph: "CI", level: 1 }],
       },
       { id: "github", name: "GitHub", glyph: "GH", level: 4 },
       { id: "docker", name: "Docker", glyph: "D", level: 2 },

@@ -241,16 +241,6 @@ function App() {
               </div>
             </div>
 
-            <div className="status-progress">
-              <div>
-                <span>EXPERIENCE</span>
-                <strong>72%</strong>
-              </div>
-              <div className="status-track">
-                <span />
-              </div>
-            </div>
-
             <div className="status-vitals">
               {(["HP", "MP"] as const).map((attribute) => {
                 const value =
@@ -294,14 +284,29 @@ function App() {
               </details>
             </div>
 
-            <div className="status-attributes" aria-label="Atributos do perfil">
+            <div className="status-attributes-heading">
+              <span className="status-label">ATRIBUTOS</span>
+              <details className="status-info status-attributes-info">
+                <summary aria-label="Informações sobre as soft skills">
+                  i
+                </summary>
+                <p>
+                  Estes valores são inicialmente autoavaliativos e refletem
+                  minha percepção atual sobre cada habilidade.
+                </p>
+              </details>
+            </div>
+            <div
+              className="status-attributes"
+              aria-label="Soft skills do perfil"
+            >
               {[
-                ["STR", 239],
-                ["VIT", 211],
-                ["AGI", 235],
-                ["INT", 240],
-                ["PER", 207],
-                ["POINTS", 3],
+                ["COMUNICAÇÃO", 65],
+                ["COLABORAÇÃO", 50],
+                ["RESOLUÇÃO DE PROBLEMAS", 80],
+                ["ADAPTAÇÃO", 90],
+                ["AUTOGESTÃO", 70],
+                ["LIDERANÇA", 40],
               ].map(([label, value]) => (
                 <div className="status-attribute" key={label}>
                   <span>{label}</span>
