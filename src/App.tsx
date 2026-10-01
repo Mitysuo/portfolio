@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { portfolio } from "./data/portfolio";
 import SpotifyAudio from "./components/SpotifyAudio";
 import SkillsWindow from "./components/SkillsWindow";
+import JourneyWindow from "./components/JourneyWindow";
 
 type HybridStatus = {
   hp: number;
@@ -14,6 +15,7 @@ function App() {
   const [notificationItem, setNotificationItem] = useState<number | null>(null);
   const [statusOpen, setStatusOpen] = useState(false);
   const [skillsOpen, setSkillsOpen] = useState(false);
+  const [journeyOpen, setJourneyOpen] = useState(false);
   const [hybridStatus, setHybridStatus] = useState<HybridStatus>({
     hp: -1,
     mp: -1,
@@ -86,12 +88,20 @@ function App() {
         if (activeItem === 2) {
           setSkillsOpen(true);
           setStatusOpen(false);
+          setJourneyOpen(false);
+          setNotificationItem(null);
+        }
+        if (activeItem === 3) {
+          setJourneyOpen(true);
+          setStatusOpen(false);
+          setSkillsOpen(false);
           setNotificationItem(null);
         }
       }
       if (event.key === "Escape") {
         setStatusOpen(false);
         setSkillsOpen(false);
+        setJourneyOpen(false);
       }
     };
 
@@ -108,9 +118,15 @@ function App() {
     } else if (index === 2) {
       setStatusOpen(false);
       setSkillsOpen(true);
+      setJourneyOpen(false);
+    } else if (index === 3) {
+      setStatusOpen(false);
+      setSkillsOpen(false);
+      setJourneyOpen(true);
     } else {
       setStatusOpen(false);
       setSkillsOpen(false);
+      setJourneyOpen(false);
     }
   }
 
@@ -319,6 +335,7 @@ function App() {
       )}
 
       {skillsOpen && <SkillsWindow onClose={() => setSkillsOpen(false)} />}
+      {journeyOpen && <JourneyWindow onClose={() => setJourneyOpen(false)} />}
     </main>
   );
 }

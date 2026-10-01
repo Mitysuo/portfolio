@@ -1,0 +1,46 @@
+export const journey = {
+  hobby:
+    "Adoro praticar esportes e, atualmente, minha principal atividade é a corrida. Também gosto muito de música e estou tentando aprender a tocar violino.",
+  chapters: [
+    {
+      id: "crianca",
+      number: "01",
+      title: "Criança",
+      period: "ORIGENS",
+      symbol: "✦",
+      heading: "O primeiro capítulo",
+      text: "Nasci no Brasil, mais especificamente na metrópole de São Paulo. Sou descendente de japoneses tanto por parte de pai quanto de mãe e considerado Yonsei, ou seja, quarta geração, dos dois lados da família.",
+      traits: ["ORIGENS", "DESCOBERTAS", "MEMÓRIAS"],
+    },
+    {
+      id: "jovem",
+      number: "02",
+      title: "Jovem",
+      period: "ESCOLA",
+      symbol: "⌁",
+      heading: "Anos de descoberta",
+      text: "Época da escola, criei muitas amizades duradouras. Também foi o início de grandes aprendizados e dos primeiros interesses sobre o que eu queria fazer no futuro. Durante o Ensino Médio, fiz um curso técnico em Edificações, e foi nessa fase que comecei a pensar se seguiria carreira em Engenharia Civil ou escolheria outra área.",
+      traits: ["APRENDIZADO", "AMIZADES", "CURIOSIDADE"],
+    },
+    {
+      id: "adolescente",
+      number: "03",
+      title: "Adolescente",
+      period: "FACULDADE",
+      symbol: "⌘",
+      heading: "Novas possibilidades",
+      text: "Na faculdade, segui para a área de Matemática Aplicada e estudei na FGV, no Rio de Janeiro. Foi uma fase de explorar novas ideias, aprofundar meus conhecimentos e descobrir o que eu queria construir para o futuro. Também precisei lidar com os desafios de morar longe dos meus pais e aprender a me virar sozinho.",
+      traits: ["FACULDADE", "EXPLORAÇÃO", "ESCOLHAS"],
+    },
+    {
+      id: "adulto",
+      number: "04",
+      title: "Adulto",
+      period: "ATUAL",
+      symbol: "◈",
+      heading: "Em construção",
+      text: "Atualmente, trabalho com dados e inteligência artificial, criando soluções que geram impacto no dia a dia. A jornada continua evoluindo, sempre com novos desafios e aprendizados. Concluí uma pós-graduação em Data Science & IA e, agora, estou fazendo outra pós-graduação voltada para Investimentos.",
+      traits: ["TRABALHO", "PÓS-GRADUAÇÃO", "PRÓXIMO NÍVEL"],
+    },
+  ],
+};
