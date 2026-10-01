@@ -47,13 +47,13 @@ function App() {
     };
   }, []);
 
-  const menuItems = ["Status", "Inventário", "Habilidades", "Comunicação"];
+  const menuItems = ["Status", "Inventário", "Habilidades", "Jornada"];
 
   const menuDescriptions = [
     "Resumo, atributos e métricas do perfil.",
     "Projetos, ferramentas e tecnologias que fazem parte do meu trabalho.",
     "Minhas principais competências e áreas de atuação em IA, e gerais.",
-    "Meus canais profissionais e formas de entrar em contato.",
+    "Minha trajetória, interesses, objetivos e perfil profissional.",
   ];
 
   function changeActiveItem(index: number) {
@@ -171,7 +171,7 @@ function App() {
           <div className="player-aura" aria-hidden="true" />
           <img
             className="player-image"
-            src="public/images/profile.jpeg"
+            src="./images/profile.jpeg"
             alt="Foto de perfil"
             aria-hidden="true"
           ></img>
